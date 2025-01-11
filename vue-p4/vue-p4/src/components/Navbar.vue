@@ -60,5 +60,6 @@ ion-icon {
 
 .selected {
   font-weight: bold;
+  scale: 1.1;
 }
 </style>

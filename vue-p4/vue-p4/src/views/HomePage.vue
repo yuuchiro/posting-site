@@ -7,7 +7,9 @@
       uia sed expedita suscipit sequi inv entore, mai ores sol uta nam quos id
       quis
     </p>
-    <button>Explore!</button>
+    <button>
+      <router-link to="/see-all" class="link">Explore!</router-link>
+    </button>
     <post-shortcut v-for="post in postList" :post-info="post"></post-shortcut>
   </div>
 </template>
@@ -46,17 +48,21 @@ p {
 
 button {
   border: 2px solid rgb(199, 198, 255);
-  padding: 6px 30px;
+  padding: 6px 50px;
   font-size: 20px;
   cursor: pointer;
   background-color: rgb(119, 110, 255);
   font-weight: bold;
-  color: white;
   transition: 400ms;
   margin-bottom: 50px;
 }
 button:hover {
   box-shadow: 0 0 10px rgb(199, 198, 255);
   scale: 1.05;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
 }
 </style>

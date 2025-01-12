@@ -19,11 +19,14 @@ export default {
     return postList;
   },
 
-  getOnePost(id) {
+  getSinglePost(postId) {
+    let index = null;
     postList.forEach((post) => {
-      if (post.id == id) return post;
+      if (post.id == +postId) {
+        index = postList.indexOf(post);
+      }
     });
-    return -1;
+    return postList[index];
   },
 
   getNewPosts() {

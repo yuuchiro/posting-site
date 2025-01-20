@@ -12,14 +12,15 @@ const bubbleSort = () => {
     }
   }
 };
-bubbleSort();
 
 export default {
   getAllPosts() {
+    bubbleSort();
     return postList;
   },
 
   getSinglePost(postId) {
+    bubbleSort();
     let index = null;
     postList.forEach((post) => {
       if (post.id == +postId) {
@@ -30,6 +31,7 @@ export default {
   },
 
   getNewPosts() {
+    bubbleSort();
     return postList.slice(0, 3);
   },
 };

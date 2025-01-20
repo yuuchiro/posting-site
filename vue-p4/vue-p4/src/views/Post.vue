@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <h1>{{ post.title }}</h1>
+    <div id="titleContainer">
+      <h1>{{ post.title }}</h1>
+      <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+    </div>
+
     <span>{{ post.author }}</span>
     <p>{{ post.content }}</p>
   </div>
@@ -30,12 +34,25 @@ export default {
   background-color: rgb(119, 110, 255);
   box-shadow: 10px 10px rgb(199, 198, 255);
 }
-h1 {
+#titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: white;
   border: 1px solid black;
   padding: 20px;
   margin-bottom: 10px;
 }
+ion-icon {
+  font-size: 25px;
+  cursor: pointer;
+  transition: 300ms;
+  margin: 0 10px;
+}
+ion-icon:hover {
+  rotate: 90deg;
+}
+
 p {
   font-size: 17px;
   padding: 25px;

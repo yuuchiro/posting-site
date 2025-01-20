@@ -12,7 +12,7 @@
       <label for="post-content">Your post</label>
       <textarea name="" id="post-content" v-model="content"></textarea>
     </div>
-    <button @click.prevent="addPost">Add</button>
+    <button @click.prevent="addPost" :disabled="correctForm">Add</button>
   </form>
 </template>
 <script>
@@ -24,6 +24,11 @@ export default {
       content: "",
     };
   },
+  computed: {
+    correctForm() {
+      return !this.author || !this.title || !this.content;
+    },
+  },
   methods: {
     addPost() {
       const postList = this.$posts.getAllPosts();
@@ -34,7 +39,12 @@ export default {
         title: this.title,
         content: this.content,
       });
-      //adding to localstorage array
+
+      let jsonList = JSON.stringify(postList);
+      localStorage.setItem("posts", jsonList);
+      this.author = "";
+      this.title = "";
+      this.content = "";
     },
   },
 };
@@ -85,5 +95,13 @@ button {
 button:hover {
   box-shadow: 0 0 10px rgb(199, 198, 255);
   scale: 1.02;
+}
+button:disabled {
+  background-color: rgb(148, 141, 255);
+}
+button:disabled:hover {
+  scale: 1;
+  box-shadow: none;
+  cursor: auto;
 }
 </style>

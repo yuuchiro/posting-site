@@ -1,13 +1,13 @@
 <template>
   <nav>
     <RouterLink to="/" active-class="selected"
-      ><ion-icon :name="names.home.normal"></ion-icon>Home page</RouterLink
+      ><ion-icon :name="names.home"></ion-icon>Home page</RouterLink
     >
     <RouterLink to="/add-post" active-class="selected"
-      ><ion-icon :name="names.plus.normal"></ion-icon>Add new post</RouterLink
+      ><ion-icon :name="names.plus"></ion-icon>Add new post</RouterLink
     >
     <RouterLink to="/see-all" active-class="selected"
-      ><ion-icon :name="names.eye.normal"></ion-icon>See all posts</RouterLink
+      ><ion-icon :name="names.eye"></ion-icon>See all posts</RouterLink
     >
   </nav>
 </template>
@@ -16,20 +16,31 @@ export default {
   data() {
     return {
       names: {
-        home: {
-          selected: "home",
-          normal: "home-outline",
-        },
-        plus: {
-          selected: "add-circle",
-          normal: "add-circle-outline",
-        },
-        eye: {
-          selected: "eye",
-          normal: "eye-outline",
-        },
+        home: "home-outline",
+        plus: "add-circle-outline",
+        eye: "eye-outline",
       },
     };
+  },
+  watch: {
+    $route(to, from) {
+      this.names.home = "home-outline";
+      this.names.plus = "add-circle-outline";
+      this.names.eye = "eye-outline";
+      switch (to.path) {
+        case "/":
+          this.names.home = "home";
+          break;
+        case "/add-post":
+          this.names.plus = "add-circle";
+          break;
+        case "/see-all":
+          this.names.eye = "eye";
+          break;
+        default:
+          break;
+      }
+    },
   },
 };
 </script>

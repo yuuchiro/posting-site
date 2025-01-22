@@ -1,11 +1,17 @@
 <template>
   <div class="post-container">
     <div class="input-container">
-      <input type="text" name="" id="" placeholder="Type something" />
-      <ion-icon name="search-outline"></ion-icon>
+      <input
+        type="text"
+        placeholder="Type something"
+        v-model="searchPhrase"
+        @keydown.enter="search"
+      />
+      <ion-icon name="search-outline" @click="search"></ion-icon>
     </div>
 
     <post-shortcut v-for="post in postList" :post-info="post"></post-shortcut>
+    <p v-if="!results" class="results">No results found...</p>
   </div>
 </template>
 <script>
@@ -14,12 +20,34 @@ export default {
   components: { PostShortcut },
   created() {
     this.postList = this.$posts.getAllPosts();
-    console.log(this.postList);
   },
   data() {
     return {
       postList: null,
+      searchPhrase: "",
+      results: true,
     };
+  },
+  methods: {
+    search() {
+      this.postList = this.$posts.getAllPosts();
+      this.results = true;
+      let newList = [];
+      if (this.searchPhrase.length == 0) return;
+      this.postList.forEach((post) => {
+        if (
+          post.author.substring(0, this.searchPhrase.length).toLowerCase() !==
+            this.searchPhrase.toLowerCase() &&
+          post.title.substring(0, this.searchPhrase.length).toLowerCase() !==
+            this.searchPhrase.toLowerCase()
+        )
+          return;
+
+        newList.push(post);
+      });
+      if (newList.length == 0) this.results = false;
+      this.postList = newList;
+    },
   },
 };
 </script>
@@ -57,5 +85,9 @@ ion-icon {
   right: 10px;
   font-size: 20px;
   cursor: pointer;
+}
+
+.results {
+  font-size: 20px;
 }
 </style>

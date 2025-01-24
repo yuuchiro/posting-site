@@ -1,4 +1,11 @@
 <template>
+  <div class="confirm-container" v-if="confirmWindow">
+    <p>Are you sure you want to delete this post?</p>
+    <div class="confirm-buttons">
+      <button @click="deletePost">Yes</button
+      ><button @click="confirmWindow = false">No</button>
+    </div>
+  </div>
   <div class="container" v-if="!edit">
     <div id="titleContainer">
       <h1>{{ post.title }}</h1>
@@ -8,7 +15,7 @@
           <RouterLink :to="`/post/${postId}/edit`" class="link">
             <p>Edit</p>
           </RouterLink>
-          <p>Delete</p>
+          <p @click="deleteConfirm">Delete</p>
         </div>
       </div>
     </div>
@@ -31,6 +38,7 @@ export default {
     return {
       post: null,
       edit: false,
+      confirmWindow: false,
     };
   },
   methods: {
@@ -41,6 +49,24 @@ export default {
       );
       if (edition == "edit") this.edit = true;
       else this.edit = false;
+    },
+    deleteConfirm() {
+      this.confirmWindow = true;
+    },
+    deletePost() {
+      let postList = this.$posts.getAllPosts();
+      let index = null;
+      postList.forEach((post) => {
+        if (post.id == this.postId) {
+          index = postList.indexOf(post);
+        }
+      });
+      postList.splice(index, 1);
+      for (let i = 0; i < index; i++) {
+        postList[i].id--;
+      }
+      localStorage.setItem("posts", JSON.stringify(postList));
+      this.$router.push(`/see-all`);
     },
   },
   watch: {
@@ -118,5 +144,45 @@ span {
 }
 .link {
   text-decoration: none;
+}
+
+.confirm-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(118, 70, 250);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 100vw 100vh rgba(0, 0, 0, 0.288);
+}
+.confirm-container p {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+.confirm-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.confirm-buttons button {
+  padding: 10px 50px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: white;
+  color: rgb(118, 70, 250);
+  border-radius: 10px;
+  transition: 300ms;
+}
+.confirm-buttons button:first-of-type {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+.confirm-buttons button:hover {
+  scale: 1.03;
 }
 </style>

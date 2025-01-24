@@ -1,50 +1,47 @@
 <template>
   <form action="">
-    <div class="input-container">
-      <label for="author">Author</label>
-      <input type="text" name="" id="author" v-model="author" />
-    </div>
-    <div class="input-container">
-      <label for="title">Title</label>
-      <input type="text" name="" id="title" v-model="title" />
-    </div>
-    <div class="input-container">
-      <label for="post-content">Your post</label>
-      <textarea name="" id="post-content" v-model="content"></textarea>
-    </div>
-    <button @click.prevent="addPost" :disabled="incorrectForm">Add</button>
+    <label for="name">Author</label>
+    <input type="text" v-model="post.author" id="name" />
+    <label for="title">Title</label>
+    <input type="text" v-model="post.title" id="title" />
+    <label for="content">Content</label>
+    <textarea v-model="post.content" id="content"></textarea>
+    <button :disabled="incorrectForm" @click.prevent="saveChanges">
+      Save changes
+    </button>
   </form>
 </template>
 <script>
 export default {
+  props: ["postId"],
+  created() {
+    this.post = this.$posts.getSinglePost(this.postId);
+  },
   data() {
     return {
-      author: "",
-      title: "",
-      content: "",
+      post: null,
     };
   },
   computed: {
     incorrectForm() {
-      return !this.author || !this.title || !this.content;
+      return !this.post.author || !this.post.title || !this.post.content;
     },
   },
   methods: {
-    addPost() {
-      const postList = this.$posts.getAllPosts();
-      let id = postList[0].id + 1;
-      postList.push({
-        id: id,
-        author: this.author,
-        title: this.title,
-        content: this.content,
+    saveChanges() {
+      let postList = this.$posts.getAllPosts();
+      postList.forEach((post) => {
+        if (post.id == this.postId) {
+          postList[postList.indexOf(post)] = this.post;
+        }
       });
-
-      let jsonList = JSON.stringify(postList);
-      localStorage.setItem("posts", jsonList);
-      this.author = "";
-      this.title = "";
-      this.content = "";
+      localStorage.setItem("posts", JSON.stringify(postList));
+      this.$router.push(`/post/${this.postId}`);
+    },
+  },
+  watch: {
+    postId(newId) {
+      this.post = this.$posts.getSinglePost(newId);
     },
   },
 };

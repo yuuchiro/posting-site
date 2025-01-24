@@ -3,6 +3,7 @@ import HomePage from "./views/HomePage.vue";
 import AddPost from "./views/AddPost.vue";
 import SeeAll from "./views/SeeAll.vue";
 import Post from "./views/Post.vue";
+import Edit from "./views/Edit.vue";
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -22,6 +23,13 @@ const router = createRouter({
     {
       path: "/post/:postId",
       component: Post,
+      children: [
+        {
+          path: "edit",
+          component: Edit,
+          props: true,
+        },
+      ],
       props: true,
     },
   ],

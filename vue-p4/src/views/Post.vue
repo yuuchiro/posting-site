@@ -15,7 +15,7 @@
           <RouterLink :to="`/post/${postId}/edit`" class="link">
             <p>Edit</p>
           </RouterLink>
-          <p @click="deleteConfirm">Delete</p>
+          <p @click="confirmWindow = true">Delete</p>
         </div>
       </div>
     </div>
@@ -49,9 +49,6 @@ export default {
       );
       if (edition == "edit") this.edit = true;
       else this.edit = false;
-    },
-    deleteConfirm() {
-      this.confirmWindow = true;
     },
     deletePost() {
       let postList = this.$posts.getAllPosts();

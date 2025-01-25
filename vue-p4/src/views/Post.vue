@@ -30,10 +30,6 @@ import { RouterView } from "vue-router";
 
 export default {
   props: ["postId"],
-  created() {
-    this.post = this.$posts.getSinglePost(this.postId);
-    this.checkEdition();
-  },
   data() {
     return {
       post: null,
@@ -67,11 +63,17 @@ export default {
     },
   },
   watch: {
-    postId(newId) {
-      this.post = this.$posts.getSinglePost(newId);
+    postId: {
+      handler(newId) {
+        this.post = this.$posts.getSinglePost(newId);
+      },
+      immediate: true,
     },
-    $route() {
-      this.checkEdition();
+    $route: {
+      handler() {
+        this.checkEdition();
+      },
+      immediate: true,
     },
   },
 };

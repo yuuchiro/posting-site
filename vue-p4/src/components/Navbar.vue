@@ -1,14 +1,17 @@
 <template>
   <nav>
     <RouterLink to="/" active-class="selected"
-      ><ion-icon :name="names.home"></ion-icon>Home page</RouterLink
-    >
+      ><ion-icon :name="names.home"></ion-icon>
+      <p class="link-text">Home page</p>
+    </RouterLink>
     <RouterLink to="/add-post" active-class="selected"
-      ><ion-icon :name="names.plus"></ion-icon>Add new post</RouterLink
-    >
+      ><ion-icon :name="names.plus"></ion-icon>
+      <p class="link-text">Add new post</p>
+    </RouterLink>
     <RouterLink to="/see-all" active-class="selected"
-      ><ion-icon :name="names.eye"></ion-icon>See all posts</RouterLink
-    >
+      ><ion-icon :name="names.eye"></ion-icon>
+      <p class="link-text">See all posts</p>
+    </RouterLink>
   </nav>
 </template>
 <script>
@@ -46,31 +49,58 @@ export default {
 </script>
 <style scoped>
 nav {
-  width: 100%;
+  height: 45vh;
+  background-color: var(--light-bg-color);
+  border-radius: 0 12px 12px 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  background-color: rgb(92, 80, 255);
-  padding: 15px 0;
+  align-items: start;
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  transition: 300ms;
 }
+nav:hover {
+  width: 200px;
+}
+nav:hover .link-text {
+  opacity: 100%;
+}
+
 a {
-  padding: 0 40px;
   text-decoration: none;
-  color: white;
+  color: var(--dark-text);
   display: flex;
   align-items: center;
-  transition: scale 300ms;
+  position: relative;
+  transition: 300ms;
 }
+
 a:hover {
-  scale: 1.1;
+  scale: 1.08;
+}
+
+.link-text {
+  opacity: 0;
+  transition: 300ms;
+  position: absolute;
+  left: 60px;
+  width: 150px;
+  transition: opacity 100ms;
 }
 
 ion-icon {
   font-size: 20px;
-  margin: 0 10px;
+  margin: 20px 13px;
+  font-size: 30px;
 }
 
 .selected {
   font-weight: bold;
-  scale: 1.1;
+  scale: 1.08;
+  color: var(--purple-accent);
 }
 </style>

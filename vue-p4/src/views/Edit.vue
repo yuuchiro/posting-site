@@ -1,8 +1,9 @@
 <template>
   <form action="">
-    <label for="name">Author</label>
+    <legend>Edit post</legend>
+    <label for="name">Author name</label>
     <input type="text" v-model="post.author" id="name" />
-    <label for="title">Title</label>
+    <label for="title">Post title</label>
     <input type="text" v-model="post.title" id="title" />
     <label for="content">Content</label>
     <textarea v-model="post.content" id="content"></textarea>
@@ -48,53 +49,41 @@ export default {
 </script>
 <style scoped>
 form {
-  max-width: 900px;
-  margin: 100px auto;
+  max-width: 500px;
+  margin: 50px auto;
   display: grid;
   place-items: center;
 }
 
+legend {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
 label {
+  width: 100%;
   display: block;
-  margin: 30px 0 5px 0;
-  font-weight: bold;
-  color: rgb(160, 150, 255);
+  margin: 40px 0 15px 0;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--purple-accent);
 }
 
 input,
 textarea {
-  width: 500px;
-  padding: 5px 10px;
-  resize: none;
-  border: 1px solid rgb(70, 70, 70);
-  outline: none;
-}
-input:focus,
-textarea:focus {
-  box-shadow: 5px 5px rgb(199, 198, 255);
-}
-textarea {
-  height: 200px;
+  width: 100%;
 }
 
 button {
-  border: 2px solid rgb(199, 198, 255);
-  padding: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: rgb(119, 110, 255);
-  font-weight: bold;
-  color: white;
-  transition: 400ms;
-  margin-top: 30px;
-  width: 500px;
+  width: 100%;
+  margin-top: 40px;
+  font-size: 14px;
+  padding: 7px;
 }
-button:hover {
-  box-shadow: 0 0 10px rgb(199, 198, 255);
-  scale: 1.02;
-}
+
 button:disabled {
-  background-color: rgb(148, 141, 255);
+  opacity: 0.7;
 }
 button:disabled:hover {
   scale: 1;

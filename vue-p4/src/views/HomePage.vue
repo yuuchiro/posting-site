@@ -1,16 +1,25 @@
 <template>
   <div class="post-container">
-    <h1>site title</h1>
+    <h1>EchoBoard</h1>
     <p>
-      site desciption Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Debitis beatae nostrum, illo repr ehenderit veniam doloremque, nesciunt q
-      uia sed expedita suscipit sequi inv entore, mai ores sol uta nam quos id
-      quis
+      EchoBoard is a platform where your words find their voice. Whether you're
+      sharing fleeting thoughts, creative writing, or profound ideas, EchoBoard
+      amplifies your expression and connects you with a vibrant community of
+      thinkers and storytellers. Designed for simplicity and focus, it offers a
+      seamless way to post, explore, and engage with others. Customize your
+      profile, choose your privacy settings, and let your words resonate—whether
+      you're looking to inspire, connect, or simply be heard. Let your thoughts
+      leave an echo on EchoBoard.
     </p>
     <button>
-      <router-link to="/see-all" class="link">Explore!</router-link>
+      <router-link to="/see-all" class="link-button">See more</router-link>
     </button>
-    <post-shortcut v-for="post in postList" :post-info="post"></post-shortcut>
+    <span class="recent">Recent activity</span>
+    <post-shortcut
+      v-for="post in postList"
+      :post-info="post"
+      class="home-page-shortcut"
+    ></post-shortcut>
   </div>
 </template>
 <script>
@@ -31,38 +40,50 @@ export default {
 .post-container {
   width: 100%;
   display: grid;
-  place-items: center;
+  place-items: center start;
+  margin-top: 130px;
 }
 
 h1 {
-  font-size: 60px;
-  margin-bottom: 20px;
+  font-size: 45px;
+  background: linear-gradient(
+    153deg,
+    var(--basic-text) 0%,
+    var(--purple-accent) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 p {
-  max-width: 700px;
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: 30px;
+  font-size: 18px;
+  margin: 30px 0;
+  color: var(--dark-text);
+  font-weight: 300;
 }
 
 button {
-  border: 2px solid rgb(199, 198, 255);
-  padding: 6px 50px;
-  font-size: 20px;
-  cursor: pointer;
-  background-color: rgb(119, 110, 255);
-  font-weight: bold;
-  transition: 400ms;
   margin-bottom: 50px;
-}
-button:hover {
-  box-shadow: 0 0 10px rgb(199, 198, 255);
-  scale: 1.05;
+  margin-top: 15px;
+  font-size: 17px;
 }
 
 .link {
   text-decoration: none;
-  color: white;
+  color: var(--dark-text);
+}
+
+.home-page-shortcut {
+  width: 1000px;
+  margin: 30px 0;
+}
+
+.recent {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--dark-text);
+  opacity: 0.8;
+  margin-top: 20px;
 }
 </style>

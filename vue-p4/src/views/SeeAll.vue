@@ -3,14 +3,17 @@
     <div class="input-container">
       <input
         type="text"
-        placeholder="Type something"
+        placeholder="Type something..."
         v-model="searchPhrase"
         @keydown.enter="search"
       />
-      <ion-icon name="search-outline" @click="search"></ion-icon>
+      <ion-icon name="search" @click="search"></ion-icon>
     </div>
-
-    <post-shortcut v-for="post in postList" :post-info="post"></post-shortcut>
+    <post-shortcut
+      v-for="post in postList"
+      :post-info="post"
+      class="post"
+    ></post-shortcut>
     <p v-if="!results" class="results">No results found...</p>
   </div>
 </template>
@@ -53,29 +56,23 @@ export default {
 </script>
 <style scoped>
 .post-container {
-  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
   display: grid;
   place-items: center;
+  gap: 80px 0;
+  grid-template-columns: 1fr 1fr;
 }
 
-input {
-  width: 600px;
-  padding: 7px 15px;
-  font-size: 17px;
-  outline: none;
-  border: 1px solid black;
-}
-input::placeholder {
-  font-weight: bold;
-  color: rgb(154, 146, 255);
-}
-input:focus {
-  box-shadow: 5px 5px rgb(199, 198, 255);
+.post {
+  width: 430px;
+  height: 100%;
 }
 
 .input-container {
   position: relative;
-  margin-bottom: 50px;
+  margin: 150px 0 40px 0;
+  grid-column: 1/3;
 }
 
 ion-icon {
@@ -83,11 +80,14 @@ ion-icon {
   top: 50%;
   transform: translateY(-50%);
   right: 10px;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
+  color: var(--purple-accent);
 }
 
 .results {
   font-size: 20px;
+  color: var(--dark-text);
+  font-weight: 500;
 }
 </style>

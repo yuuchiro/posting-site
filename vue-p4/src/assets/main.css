@@ -69,6 +69,9 @@ textarea {
   resize: none;
   padding: 20px 25px;
 }
+textarea::-webkit-scrollbar {
+  display: none;
+}
 
 input::placeholder {
   color: var(--dark-text);

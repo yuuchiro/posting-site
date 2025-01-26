@@ -40,9 +40,7 @@ export default {
 
       let jsonList = JSON.stringify(postList);
       localStorage.setItem("posts", jsonList);
-      this.author = "";
-      this.title = "";
-      this.content = "";
+      this.$router.push("/see-all");
     },
   },
 };
